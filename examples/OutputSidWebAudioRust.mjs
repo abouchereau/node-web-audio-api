@@ -3,7 +3,7 @@
 
 import { AudioContext, OfflineAudioContext, OscillatorNode, AudioWorkletNode } from '../index.mjs';
 
-class OutputSidWebAudioRust  {
+export default class OutputSidWebAudioRust  {
 
     audioContext = null;
     scriptNode = null;
