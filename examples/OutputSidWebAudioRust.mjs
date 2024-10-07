@@ -24,7 +24,7 @@ export default class OutputSidWebAudioRust  {
     }
 
 }
-
+/*
 (async()=>{
     const output = new OutputSidWebAudioRust();
     await output.init();
@@ -35,4 +35,4 @@ export default class OutputSidWebAudioRust  {
 
 
 
-
+*/
