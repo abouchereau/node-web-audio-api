@@ -13,6 +13,9 @@ export default class OutputSidWebAudioRust  {
         const latencyHint = "playback";//process.env.WEB_AUDIO_LATENCY === 'playback' ? 'playback' : 'interactive';
         this.audioContext = new AudioContext({ latencyHint });
         await this.audioContext.audioWorklet.addModule("worklets/SidWorklet.js");
+       /* this.scriptNode = await new AudioWorkletNode(this.audioContext, 'SidWorklet', {processorOptions: {"sidVoice":0}});
+        this.scriptNode.connect(this.audioContext.destination);    */
+        
         this.scriptNode.push(await new AudioWorkletNode(this.audioContext, 'SidWorklet', {processorOptions: {"sidVoice":0}}));
         this.scriptNode.push(await new AudioWorkletNode(this.audioContext, 'SidWorklet', {processorOptions: {"sidVoice":1}}));
         this.scriptNode.push(await new AudioWorkletNode(this.audioContext, 'SidWorklet', {processorOptions: {"sidVoice":2}}));
@@ -26,13 +29,11 @@ export default class OutputSidWebAudioRust  {
 
         for(let i=0;i<3;i++) {
             this.scriptNode[i].connect(this.gain[i]);        
-            this.gain[i].connect(this.panner[i]);        
-            this.panner[i].pan.value =  i-1;
-            this.gain[i].gain.value = 1-(i/10);
+            this.gain[i].connect(this.panner[i]);     
             this.panner[i].connect(this.audioContext.destination);
         }
 
-        
+       
        
     }
 
@@ -51,8 +52,10 @@ export default class OutputSidWebAudioRust  {
         }
     }*/
 
-    send(obj) {        
+    send(obj) {      
+        //this.scriptNode.port.postMessage(obj); 
         for(let i=0;i<3;i++) {
+          
             this.scriptNode[i].port.postMessage(obj);
         }
             

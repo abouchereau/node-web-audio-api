@@ -1,3 +1,5 @@
+const allEqual = arr => arr.every(val => val === arr[0]);
+
 class SidWorklet extends AudioWorkletProcessor {
 
 
@@ -85,11 +87,17 @@ class SidWorklet extends AudioWorkletProcessor {
             }*/
            if (e.data.length>0) {
                 for (let i=0; i<e.data.length;i+=2) {
-                    if (this.ALLOWED_REGISTERS[this.sidVoice].includes(e.data[i])) {
+                   // if (this.ALLOWED_REGISTERS[this.sidVoice].includes(e.data[i])) {
                         this.memory[e.data[i]] = e.data[i+1];
-                    }
-                    
-                }                
+                   // }                    
+                }            
+                if (this.sidVoice>0) {
+                    for (let j =0;j<7;j++) {
+                        this.memory[j]=this.memory[(7*this.sidVoice)+j];
+                    }                
+                }
+                
+               console.log(JSON.stringify(this.memory));    
             }
         };
     }
@@ -108,6 +116,9 @@ class SidWorklet extends AudioWorkletProcessor {
     
     play() {
         let sample = this.mixx();
+        if (sample!=0) {
+           // console.log(sample);
+        }
         return sample;        
     }
 
@@ -117,7 +128,6 @@ class SidWorklet extends AudioWorkletProcessor {
         this.filtin = 0;
         this.output = 0;
         //this.iterate++;
-
 
         for (let chnadd = 0; chnadd < this.SID_CHANNEL_AMOUNT; chnadd++) {
             this.prevgate = (this.ADSRstate[chnadd] & this.GATE_BITMASK);
