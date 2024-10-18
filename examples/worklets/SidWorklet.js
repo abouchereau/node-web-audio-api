@@ -7,19 +7,12 @@ class SidWorklet extends AudioWorkletProcessor {
     constructor(options) {
         super(options);
         this.sidVoice = options.processorOptions.sidVoice;
-
-        this.ALLOWED_REGISTERS = [
-            [0,1,2,3,4,5,6,21,22,23,24],
-            [7,8,9,10,11,12,13,21,22,23,24],
-            [14,15,16,17,18,19,20,21,22,23,24],
-        ];
-
         this.memory = new Array(25).fill(0);
         this.memory[24] = 0x0F; 
 
         //const        
         this.C64_PAL_CPUCLK = 985248; //Hz
-        this.SID_CHANNEL_AMOUNT = 3;
+        this.SID_CHANNEL_AMOUNT = 1;//1 seule voix TODO debuger pour avoir les 3 voix
         this.OUTPUT_SCALEDOWN = 0x10000 * this.SID_CHANNEL_AMOUNT * 16;
         this.GATE_BITMASK = 0x01;
         this.SYNC_BITMASK = 0x02;
@@ -92,12 +85,12 @@ class SidWorklet extends AudioWorkletProcessor {
                    // }                    
                 }            
                 if (this.sidVoice>0) {
-                    for (let j =0;j<7;j++) {
+                    for (let j =0;j<7;j++) {//on pass sur le voix 1 car les 2 autres ne fonctionnent pas :(
                         this.memory[j]=this.memory[(7*this.sidVoice)+j];
                     }                
                 }
                 
-               console.log(JSON.stringify(this.memory));    
+               //console.log(JSON.stringify(this.memory));    
             }
         };
     }
