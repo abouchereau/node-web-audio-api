@@ -34,7 +34,7 @@ class SidWorklet extends AudioWorkletProcessor {
         
         //vars
 
-        this.samplerate = 22500;//null;
+        this.samplerate = 44100;//null;
         this.clk_ratio = this.C64_PAL_CPUCLK / this.samplerate;
         this.framecnt = 1;
         this.mix = 0;		//utilisé ?

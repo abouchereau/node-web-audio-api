@@ -11,8 +11,8 @@ export default class OutputSidWebAudioRust  {
 
     async init() {
         this.audioContext = new AudioContext({
-            latencyHint: 0.3,
-            sampleRate: 22500});
+            latencyHint: 0.05,
+            sampleRate: 44100});
         await this.audioContext.audioWorklet.addModule("worklets/SidWorklet.js");
        /* this.scriptNode = await new AudioWorkletNode(this.audioContext, 'SidWorklet', {processorOptions: {"sidVoice":0}});
         this.scriptNode.connect(this.audioContext.destination);    */
