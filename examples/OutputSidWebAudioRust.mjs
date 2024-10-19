@@ -54,7 +54,7 @@ export default class OutputSidWebAudioRust  {
 
     send(obj) {      
         //this.scriptNode.port.postMessage(obj); 
-        for(let i=0;i<3;i++) {
+        for(let i=0;i<1;i++) {
           
             this.scriptNode[i].port.postMessage(obj);
         }
