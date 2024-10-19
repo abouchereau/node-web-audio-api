@@ -10,7 +10,7 @@ export default class OutputSidWebAudioRust  {
 
 
     async init() {
-        const latencyHint = "playback";//process.env.WEB_AUDIO_LATENCY === 'playback' ? 'playback' : 'interactive';
+        const latencyHint = "balanced";//process.env.WEB_AUDIO_LATENCY === 'playback' ? 'playback' : 'interactive';
         this.audioContext = new AudioContext({ latencyHint });
         await this.audioContext.audioWorklet.addModule("worklets/SidWorklet.js");
        /* this.scriptNode = await new AudioWorkletNode(this.audioContext, 'SidWorklet', {processorOptions: {"sidVoice":0}});
