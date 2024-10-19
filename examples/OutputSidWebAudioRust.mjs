@@ -17,17 +17,17 @@ export default class OutputSidWebAudioRust  {
         this.scriptNode.connect(this.audioContext.destination);    */
         
         this.scriptNode.push(await new AudioWorkletNode(this.audioContext, 'SidWorklet', {processorOptions: {"sidVoice":0}}));
-       // this.scriptNode.push(await new AudioWorkletNode(this.audioContext, 'SidWorklet', {processorOptions: {"sidVoice":1}}));
+        this.scriptNode.push(await new AudioWorkletNode(this.audioContext, 'SidWorklet', {processorOptions: {"sidVoice":1}}));
       //  this.scriptNode.push(await new AudioWorkletNode(this.audioContext, 'SidWorklet', {processorOptions: {"sidVoice":2}}));
         this.panner.push(this.audioContext.createStereoPanner());
-       // this.panner.push(this.audioContext.createStereoPanner());
+        this.panner.push(this.audioContext.createStereoPanner());
       //  this.panner.push(this.audioContext.createStereoPanner());
         this.gain.push(this.audioContext.createGain());
-     //   this.gain.push(this.audioContext.createGain());
+        this.gain.push(this.audioContext.createGain());
       //  this.gain.push(this.audioContext.createGain());
 
 
-        for(let i=0;i<1;i++) {
+        for(let i=0;i<2;i++) {
             this.scriptNode[i].connect(this.gain[i]);        
             this.gain[i].connect(this.panner[i]);     
             this.panner[i].connect(this.audioContext.destination);
@@ -54,7 +54,7 @@ export default class OutputSidWebAudioRust  {
 
     send(obj) {      
         //this.scriptNode.port.postMessage(obj); 
-        for(let i=0;i<1;i++) {
+        for(let i=0;i<2;i++) {
           
             this.scriptNode[i].port.postMessage(obj);
         }
