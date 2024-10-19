@@ -38,11 +38,11 @@ export default class OutputSidWebAudioRust  {
     }
 
     pan(voice, value) {//value de -100 à 100
-        this.panner[voice].pan.value = value / 100;
+        //this.panner[voice].pan.value = value / 100;
     }
 
     gain(voice, value) {//value de 0 à 100
-        this.gain[voice].gain.value = value / 100;
+       // this.gain[voice].gain.value = value / 100;
     }
 
 /*
